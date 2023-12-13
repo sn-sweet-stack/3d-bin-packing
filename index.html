@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Packing Example</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <style>
+        .clickable {
+          cursor: pointer;
+        }
+        input[type="text"] {
+          width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div x-data="$store.shipping">
+
+  <div class="d-flex">
+    <div class="container" style="width:50%" x-data="{name: null, width: null, height: null, length: null}">
+
+      <h3>Boxes</h3>
+
+      <div class="row">
+        <div class="col">
+          <table class="table table-bordered">
+            <tr x-show="boxes.length">
+              <th>name</th>
+              <th>width</th>
+              <th>height</th>
+              <th>length</th>
+              <th>-</th>
+            </tr>
+            <template x-for="(box, i) in boxes" :key="i">
+              <tr>
+                <th x-text="box.name" width="50px"></th>
+                <td x-text="box.width"></td>
+                <td x-text="box.height"></td>
+                <td x-text="box.length"></td>
+                <td>
+                  <iconify-icon class="clickable" icon="mdi:remove" @click="boxes.splice(i, 1)"></iconify-icon>
+                </td>
+              </tr>
+            </template>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input type="text" placeholder="name" x-model="name">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="width" x-model="width">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="height" x-model="height">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="length" x-model="length">
+        </div>
+        <div class="col">
+          <iconify-icon icon="ic:baseline-plus" width="32" height="32" class="clickable" @click="addBox(name, width, height, length)"></iconify-icon>
+        </div>
+      </div>
+    </div>
+
+    <div class="container" style="width:50%" x-data="{name: null, width: null, height: null, length: null}">
+
+      <h3>Items</h3>
+
+      <div class="row">
+        <div class="col">
+          <table class="table table-bordered">
+            <tr x-show="items.length">
+              <th>name</th>
+              <th>width</th>
+              <th>height</th>
+              <th>length</th>
+              <th>-</th>
+            </tr>
+            <template x-for="(item, i) in items" :key="i">
+              <tr>
+                <th x-text="item.name" width="50px"></th>
+                <td x-text="item.width"></td>
+                <td x-text="item.height"></td>
+                <td x-text="item.length"></td>
+                <td>
+                  <iconify-icon class="clickable" icon="mdi:remove" @click="items.splice(i, 1)"></iconify-icon>
+                </td>
+              </tr>
+            </template>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col">
+          <input type="text" placeholder="name" x-model="name">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="width" x-model="width">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="height" x-model="height">
+        </div>
+        <div class="col">
+          <input type="text" placeholder="length" x-model="length">
+        </div>
+        <div class="col">
+          <iconify-icon icon="ic:baseline-plus" width="32" height="32" class="clickable" @click="addItem(name, width, height, length)"></iconify-icon>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div>
+    <div class="container mt-5" x-show="packedBoxes.length">
+      <div class="row">
+        <div class="col">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th colspan="2">Suggested packing</th>
+              </tr>
+              <tr>
+                <th>Box name</th>
+                <th>Items</th>
+              </tr>
+            </thead>
+            <tbody>
+              <template x-for="(box, i) in packedBoxes" :key="i">
+                <tr>
+                  <td x-text="box.name"></td>
+                  <td>
+                      <template x-for="(item, j) in box.items" :key="j">
+                          <div x-text="item.name"></div>
+                      </template>
+                  </td>
+                </tr>
+              </template>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+
+<script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+</body>
+</html>
