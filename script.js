@@ -48,10 +48,10 @@
 
   function packItemsIntoBoxes(items, boxes) {
     // Sort items by volume big to small
-    items.sort((a, b) => calculateVolume(a) - calculateVolume(b));
+    items.sort((a, b) => calculateVolume(b) - calculateVolume(a));
 
     // Sort boxes by volume small to big
-    boxes.sort((a, b) => calculateVolume(b) - calculateVolume(a));
+    boxes.sort((a, b) => calculateVolume(a) - calculateVolume(b));
 
     // Array to hold the result
     let packedBoxes = [];
