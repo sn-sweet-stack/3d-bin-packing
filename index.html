@@ -12,7 +12,7 @@
         .clickable {
           cursor: pointer;
         }
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
           width: 100%;
         }
     </style>
@@ -56,13 +56,13 @@
           <input type="text" placeholder="name" x-model="name">
         </div>
         <div class="col">
-          <input type="text" placeholder="width" x-model="width">
+          <input type="number" placeholder="width" x-model="width">
         </div>
         <div class="col">
-          <input type="text" placeholder="height" x-model="height">
+          <input type="number" placeholder="height" x-model="height">
         </div>
         <div class="col">
-          <input type="text" placeholder="length" x-model="length">
+          <input type="number" placeholder="length" x-model="length">
         </div>
         <div class="col">
           <iconify-icon icon="ic:baseline-plus" width="32" height="32" class="clickable" @click="addBox(name, width, height, length)"></iconify-icon>
@@ -104,13 +104,13 @@
           <input type="text" placeholder="name" x-model="name">
         </div>
         <div class="col">
-          <input type="text" placeholder="width" x-model="width">
+          <input type="number" placeholder="width" x-model="width">
         </div>
         <div class="col">
-          <input type="text" placeholder="height" x-model="height">
+          <input type="number" placeholder="height" x-model="height">
         </div>
         <div class="col">
-          <input type="text" placeholder="length" x-model="length">
+          <input type="number" placeholder="length" x-model="length">
         </div>
         <div class="col">
           <iconify-icon icon="ic:baseline-plus" width="32" height="32" class="clickable" @click="addItem(name, width, height, length)"></iconify-icon>
