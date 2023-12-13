@@ -35,6 +35,8 @@
       recalculate: function () {
         if (!this.items.length || !this.boxes.length) {
           this.packedBoxes = [];
+
+          return;
         }
 
         this.packedBoxes = packItemsIntoBoxes(this.items, this.boxes);
