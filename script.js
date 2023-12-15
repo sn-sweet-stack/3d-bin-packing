@@ -73,7 +73,7 @@
     items.forEach(item => {
         let itemVolume = calculateVolume(item);
         // if the item is bigger than the largest box, we don't have a choice but to place it into the box anyway, but only if it's empty
-        if (itemVolume <= remainingBoxVolume || !boxes.items.length) {
+        if (itemVolume <= remainingBoxVolume || !box.items.length) {
             box.items.push(item);
             remainingBoxVolume -= itemVolume;
         } else {
