@@ -56,36 +56,38 @@
     // Array to hold the result
     let packedBoxes = [];
 
-    // Iterate over each item
-    for (let item of items) {
-      let itemPacked = false;
+    // Calculate total volume of all items
+    const totalItemsVolume = items.reduce((total, item) => total + calculateVolume(item), 0);
 
-      // Try to fit the item in an already used box
-      for (let box of packedBoxes) {
-        if (doesItemFit(item, box)) {
-          box.items.push(item);
-          itemPacked = true;
-          break;
+    // Find the smallest box where all items can potentially fit
+    let suitableBox = boxes.find(box => calculateVolume(box) >= totalItemsVolume);
+
+    // If all items fit into one box
+    if (suitableBox) {
+        return [{ ...suitableBox, items: [...items] }];
+    }
+
+    // Otherwise, use the largest box available just once
+    let box = { ...boxes[boxes.length - 1], items: [] };
+    let remainingBoxVolume = calculateVolume(box);
+    let remainingItems = [];
+
+    // Try to pack as many items as possible into the current box
+    items.forEach(item => {
+        let itemVolume = calculateVolume(item);
+        // if the item is bigger than the largest box, we don't have a choice but to place it into the box anyway, but only if it's empty
+        if (itemVolume <= remainingBoxVolume || !boxes.items.length) {
+            box.items.push(item);
+            remainingBoxVolume -= itemVolume;
+        } else {
+            remainingItems.push(item);
         }
-      }
+    });
 
-      // If the item did not fit in any used box, try to fit it in a new box
-      if (!itemPacked) {
-        for (let box of boxes) {
-          if (doesItemFit(item, box)) {
-            let newBox = {...box, items: [item]};
-            packedBoxes.push(newBox);
-            itemPacked = true;
-            break;
-          }
-        }
-      }
-
-      // If the item did not fit in ANY box, assume using the largest possible box
-      if (!itemPacked) {
-        let newBox = {...boxes.slice(-1)[0], items: [item]};
-        packedBoxes.push(newBox);
-      }
+    // Pack the remaining items recursively
+    let packedBoxes = [box];
+    if (remainingItems.length > 0) {
+        packedBoxes = packedBoxes.concat(packItemsIntoBoxes(remainingItems, boxes));
     }
 
     return packedBoxes;
@@ -94,20 +96,4 @@
   // Function to calculate the volume of an item or box
   function calculateVolume(obj) {
     return obj.width * obj.height * obj.length;
-  }
-
-  // Check if an item fits in the remaining volume of a box
-  function doesItemFit(item, box) {
-    let totalVolume = calculateVolume(box);
-    let usedVolume = 0;
-
-    const items = box.items ?? []
-
-    // Calculate the volume used by items already in the box
-    for (let packedItem of items) {
-      usedVolume += calculateVolume(packedItem);
-    }
-
-    // Check if the item fits in the remaining volume
-    return calculateVolume(item) <= (totalVolume - usedVolume);
   }
