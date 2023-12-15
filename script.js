@@ -53,9 +53,6 @@
     // Sort boxes by volume small to big
     boxes.sort((a, b) => calculateVolume(a) - calculateVolume(b));
 
-    // Array to hold the result
-    let packedBoxes = [];
-
     // Calculate total volume of all items
     const totalItemsVolume = items.reduce((total, item) => total + calculateVolume(item), 0);
 
